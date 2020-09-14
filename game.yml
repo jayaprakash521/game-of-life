@@ -1,0 +1,13 @@
+---
+- name: import the playbook
+  import_playbook: tomcat.yml
+
+- hosts: all
+  become: yes
+  roles:
+    - role: geerlingguy.java
+  tasks:
+    - name: copy war
+      copy:
+        src: target/gameoflife-web/*.war
+        dest: /usr/local/apache-tomcat-8.5.57/webapps
