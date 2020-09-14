@@ -4,10 +4,8 @@
 
 - hosts: all
   become: yes
-  roles:
-    - role: geerlingguy.java
   tasks:
     - name: copy war
       copy:
-        src: target/gameoflife-web/*.war
+        src: gameoflife-web/target/*.war
         dest: /usr/local/apache-tomcat-8.5.57/webapps
