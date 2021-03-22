@@ -1,0 +1,11 @@
+---
+- name: import the playbook
+  import_playbook: tomcat.yml
+
+- hosts: all
+  become: yes
+  tasks:
+    - name: copy war
+      copy:
+        src: ./gameoflife-web/target/gameoflife.war
+        dest: /usr/local/apache-tomcat-8.5.57/webapps
