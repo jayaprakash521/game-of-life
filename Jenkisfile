@@ -1,0 +1,21 @@
+node('ubuntuserver') {
+     properties([parameters([choice(choices: ['master', 'gameoflife-release-1.0.35', 'gameoflife-release-1.0.36','gameoflife-release-1.0.37'], description: '', name: 'branch_name')])])
+     stage('git') {
+           git branch:"${params.branch_name}",url:'https://github.com/jayaprakash521/game-of-life.git'
+         }
+     stage('build') {
+          if(params.branch_name == master) {
+             sh 'mvn package'
+			}
+		  else {
+		     sh 'mvn clean package'
+			}
+		}
+	 stage('archive') {
+	       archiveArtifacts artifacts: 'gameoflife-web/target/*.war', followSymlinks: false
+		   }
+	 stage('junit') {
+	       junit 'gameoflife-web/target/surefire-reports/*.xml'
+		   }
+	}
+		   
