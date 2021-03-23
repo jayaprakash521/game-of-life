@@ -30,5 +30,6 @@ node('ubuntuserver') {
 	      server.upload spec: uploadSpec
 
 	}
+}
 		   
 		   
