@@ -22,8 +22,8 @@ node('ubuntuserver') {
 		  def uploadspec = """{
 		    "files": [
 			 {
-			    "pattern": "gameoflife-web/target/*.war"
-				"target:: "Jaya/"
+			    "pattern": "gameoflife-web/target/*.war",
+				"target": "Jaya/"
 			  }
 			]
 		}"""
@@ -31,5 +31,6 @@ node('ubuntuserver') {
 
 	}
 }
+		   
 		   
 		   
