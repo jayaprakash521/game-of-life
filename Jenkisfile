@@ -1,36 +1,14 @@
-node('ubuntuserver') {
-   properties([parameters([choice(choices: ['master', 'gameoflife-release-1.0.35', 'gameoflife-release-1.0.36','gameoflife-release-1.0.37'], description: '', name: 'branch_name')])])
-     stage('git') {
-           git branch:"${params.branch_name}",url: 'https://github.com/jayaprakash521/game-of-life.git'
-         }
-     stage('build') {
-          if(params.branch_name == 'master') {
-             sh 'mvn package'
-			}
-		  else {
-		     sh 'mvn clean package'
-			}
-		}
-	 stage('archive') {
-	       archiveArtifacts artifacts: 'gameoflife-web/target/*.war', followSymlinks: false
-		   }
-	 stage('junit') {
-	       junit 'gameoflife-web/target/surefire-reports/*.xml'
-		   }
-     stage('deploy artifacts') {
-	      def server = Artifactory.server 'Artifactory'
-		  def uploadspec = """{
-		    "files": [
-			 {
-			    "pattern": "gameoflife-web/target/*.war",
-				"target": "Jaya/"
-			  }
-			]
-		}"""
-	      server.upload spec: uploadSpec
-
-	}
+node('ansible') {
+    stage('git clone') {
+         git 'https://github.com/jayaprakash521/game-of-life.git'
+        }
+    stage('build') {
+         sh 'mvn package'
+        }
+    stage('run the playbook') {
+         sh 'ansible-playbook -i /home/ansible/jay/hosts /home/ansible/jay/game.yml'
+        }
 }
-		   
+     		   
 		   
 		   
