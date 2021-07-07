@@ -12,5 +12,10 @@ pipeline {
         sh 'mvn clean package'
         }
       }
+    stage('trigger') {
+      steps {
+        build job: 'Spring'
+      }
+    }
   }
 }
