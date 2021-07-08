@@ -14,7 +14,7 @@ pipeline {
       }
     stage('trigger') {
       steps {
-        build job: 'Spring'
+        build job: 'Spring', parameters: [string(name: 'MY_PARAM')]
       }
     }
   }
