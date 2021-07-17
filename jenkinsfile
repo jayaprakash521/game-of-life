@@ -18,7 +18,7 @@ pipeline {
       }
     stage('build') {
       steps {
-        echo '${env.IMAGE}'
+        echo "image name is ${env.IMAGE}"
         sh 'mvn clean package'
         }
       }
