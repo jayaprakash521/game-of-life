@@ -3,6 +3,10 @@ pipeline {
   parameters {
         string defaultValue: 'master', name: 'mybranch'
       }
+  options {
+        buildDiscarder(logRotator(numtokeepstr: '3'))
+  environment {
+    IMAGE= "JayGOL"
   stages {
     stage('git') {
       steps {
@@ -11,6 +15,7 @@ pipeline {
       }
     stage('build') {
       steps {
+        eho '$IMAGE'
         sh 'mvn clean package'
         }
       }
