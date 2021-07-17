@@ -5,9 +5,11 @@ pipeline {
       }
   options {
         buildDiscarder(logRotator(numtokeepstr: '3'))
+        }
   environment {
     IMAGE = "JayGOL"
     Jenkinscredid = "central"
+    }
   stages {
     stage('git') {
       steps {
